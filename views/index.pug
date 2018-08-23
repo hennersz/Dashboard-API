@@ -1,12 +1,14 @@
 extends layout
 
 block content
-  div 
-  each val in services
-    div
-      div.entry= val.std
-      div.entry= val.etd
-      if val.platform
-        div.entry= val.platform
-      else
-        div.entry.red Platform unknown
+  main
+    h1 Dashboard
+    h3 Services
+    each val in services
+      div.leftAlign
+        div= val.std
+        div= val.etd
+        if val.platform
+          div= val.platform
+        else
+          div Platform unknown
