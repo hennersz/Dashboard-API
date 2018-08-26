@@ -6,7 +6,8 @@ html, body {
   margin: 0;
   font-size: 1.1em;
 	line-height: 1.6;
-	-webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  background: $backgroundColour;
 }
 
 .padded {
@@ -44,6 +45,11 @@ main {
 .flex1-3 {
   flex-grow: 1;
   flex-basis: 33%;
+}
+
+.flex1-4 {
+  flex-grow: 1;
+  flex-basis: 25%;
 }
 
 .centered {

@@ -4,8 +4,13 @@ var rail = require('../rail');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  rail.findDeparturesTo('PAD', 'RDG').then((result)=>{
-    res.render('index', {services:result.services});
+  var requests = [];
+  requests.push(rail.findDeparturesTo('PRP', 'BUG'));
+  requests.push(rail.findDeparturesTo('BUG', 'PRP'));
+  requests.push(rail.findDeparturesTo('BTN', 'BUG'));
+  requests.push(rail.findDeparturesTo('BUG', 'BTN'));
+  Promise.all(requests).then((results)=>{
+    res.render('index', {initialData: results});
   });
 });
 

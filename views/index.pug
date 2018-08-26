@@ -4,11 +4,10 @@ block content
   main
     h1 Dashboard
     h3 Services
-    each val in services
-      div.leftAlign
-        div= val.std
-        div= val.etd
-        if val.platform
-          div= val.platform
-        else
-          div Platform unknown
+    div#mountPoint
+
+block scripts
+  script.
+    window.serverData = !{JSON.stringify(initialData).replace(/<\//g, "<\\/")}
+  script(src='/javascript/stationNames.js')
+  script(src='/javascript/dashboard.js')
