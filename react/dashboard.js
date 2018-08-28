@@ -11,17 +11,19 @@ class DepartureBoard extends React.Component {
         <div className='centered'>
           <h4>{stationNames[this.props.dep]} → {stationNames[this.props.dest]}</h4>
         </div>
-        {this.props.services.map((service, i) => (
-          <div key={i}>
-            <div className='service flexRow'>
-              <div className='padded flex1-3'>{service.delay === 'On time' ? service.departureTime : service.delay}</div>
-              <div className='padded flex1-3'>{service.platform ? service.platform : 'Platform Unavailable'}</div>
+        <div style={{height: '70%', overflow: 'scroll'}}>
+          {this.props.services.map((service, i) => (
+            <div key={i}>
+              <div className='service flexRow'>
+                <div className='padded flex1-3'>{service.delay === 'On time' ? service.departureTime : service.delay}</div>
+                <div className='padded flex1-3'>{service.platform ? service.platform : 'Platform Unavailable'}</div>
 
-              <div className='padded flex1-3'>{service.arrivalDelay === 'On time' ? service.arrivalTime : service.arrivalDelay}</div>
+                <div className='padded flex1-3'>{service.arrivalDelay === 'On time' ? service.arrivalTime : service.arrivalDelay}</div>
+              </div>
+              {i !== this.props.services.length - 1 ? <hr /> : null}
             </div>
-            {i !== this.props.services.length - 1 ? <hr /> : null}
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     );
   }

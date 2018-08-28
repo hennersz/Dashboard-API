@@ -40,32 +40,36 @@ var DepartureBoard = function (_React$Component) {
             stationNames[this.props.dest]
           )
         ),
-        this.props.services.map(function (service, i) {
-          return React.createElement(
-            'div',
-            { key: i },
-            React.createElement(
+        React.createElement(
+          'div',
+          { style: { height: '70%', overflow: 'scroll' } },
+          this.props.services.map(function (service, i) {
+            return React.createElement(
               'div',
-              { className: 'service flexRow' },
+              { key: i },
               React.createElement(
                 'div',
-                { className: 'padded flex1-3' },
-                service.delay === 'On time' ? service.departureTime : service.delay
+                { className: 'service flexRow' },
+                React.createElement(
+                  'div',
+                  { className: 'padded flex1-3' },
+                  service.delay === 'On time' ? service.departureTime : service.delay
+                ),
+                React.createElement(
+                  'div',
+                  { className: 'padded flex1-3' },
+                  service.platform ? service.platform : 'Platform Unavailable'
+                ),
+                React.createElement(
+                  'div',
+                  { className: 'padded flex1-3' },
+                  service.arrivalDelay === 'On time' ? service.arrivalTime : service.arrivalDelay
+                )
               ),
-              React.createElement(
-                'div',
-                { className: 'padded flex1-3' },
-                service.platform ? service.platform : 'Platform Unavailable'
-              ),
-              React.createElement(
-                'div',
-                { className: 'padded flex1-3' },
-                service.arrivalDelay === 'On time' ? service.arrivalTime : service.arrivalDelay
-              )
-            ),
-            i !== _this2.props.services.length - 1 ? React.createElement('hr', null) : null
-          );
-        })
+              i !== _this2.props.services.length - 1 ? React.createElement('hr', null) : null
+            );
+          })
+        )
       );
     }
   }]);
