@@ -21,6 +21,10 @@ h1 {
 h2 {
   font-size: 2em; }
 
+h4 {
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
 a, a:visited {
   color: #3B4B5E;
   text-decoration: underline;

@@ -18,6 +18,12 @@ h2{
   font-size: 2em;
 }
 
+h4{
+  $h4margin:10px;
+  margin-top: $h4margin;
+  margin-bottom: $h4margin;
+}
+
 a, a:visited {
   color: $linkColour;
   text-decoration: underline;
