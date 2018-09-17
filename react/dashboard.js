@@ -4,26 +4,62 @@
 
 
 class DepartureBoard extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      serviceSelector: 0
+    };
+
+    this.increment = this.increment.bind(this);
+    this.decrement = this.decrement.bind(this);
+  }
+
+  increment(){
+    this.setState((state, props)=>{
+      if (state.serviceSelector < props.journeys.length - 1)
+        return {serviceSelector: state.serviceSelector + 1};
+      else
+        return {serviceSelector: state.serviceSelector};
+    });
+  }
+
+  decrement(){
+    this.setState((state)=>{
+      if (state.serviceSelector > 0)
+        return {serviceSelector: state.serviceSelector - 1};
+      else
+        return {serviceSelector: 0};
+    });
+  }
   //station names comes from stationNames.js file
   render() {
+    const journey = this.props.journeys[this.state.serviceSelector];
+    const departureStation = stationNames[journey.dep];
+    const destinationStation = stationNames[journey.dest];
+    const services = journey.services;
+
     return (
-      <div className='board'>
+      <div className='board flexColumn' style={{height: '500px', justifyContent:'flex-start'}}>
         <div className='centered'>
-          <h4>{stationNames[this.props.dep]} → {stationNames[this.props.dest]}</h4>
+          <div className='flexRow'>
+            <button 
+              style={{height: '60px', width: '60px', padding:0}}
+              onClick={this.decrement}
+             >{'<-'}</button>
+            <h4 style={{maxWidth:'55%'}}>{departureStation} → {destinationStation}</h4>
+            <button 
+              style={{height: '60px', width: '60px', padding: 0}}
+              onClick={this.increment}
+             >{'->'}</button>
+          </div>
+          <div className="flexRow" >
+            <div className="flex1-3"><h4>Departure Time</h4></div>
+            <div className="flex1-3"><h4>Platform</h4></div>
+            <div className="flex1-3"><h4>Arrival Time</h4></div>
+          </div>
         </div>
-        <div className="flexRow">
-          <div className="flex1-3">
-            <h4>Departure Time</h4>
-          </div>
-          <div className="flex1-3">
-            <h4>Platform</h4>
-          </div>
-          <div className="flex1-3">
-            <h4>Arrival Time</h4>
-          </div>
-        </div>
-        <div style={{height: '70%', overflow: 'scroll'}}>
-          {this.props.services.map((service, i) => (
+        <div style={{overflow: 'scroll'}}>
+          {services.map((service, i) => (
             <div key={i}>
               <div className='service flexRow'>
                 <div className='padded flex1-3'>
@@ -39,7 +75,7 @@ class DepartureBoard extends React.Component {
                   {service.arrivalDelay === 'On time' ? null : `(${service.arrivalDelay})`}
                 </div>
               </div>
-              {i !== this.props.services.length - 1 ? <hr /> : null}
+              {i !== services.length - 1 ? <hr /> : null}
             </div>
           ))}
         </div>
@@ -48,7 +84,7 @@ class DepartureBoard extends React.Component {
   }
 }
 
-class DepartureBoardContainer extends React.Component {
+class WidgetContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,21 +96,19 @@ class DepartureBoardContainer extends React.Component {
   render(){
     return (
       <div className='flexRow' style={{alignItems: 'flex-start', flexWrap: 'wrap'}}>
-        {this.state.journeys.map((journey, i) => (
-          <div 
-            key={i}
-            className="flex1-2"
-            style={{minWidth: '365px'}}
-          >
-            <DepartureBoard
-              services={journey.services}
-              dep={journey.dep}
-              dest={journey.dest}
-            />
-          </div>
-        ))}
-        <div className="flex1-2">
+        <div 
+          className="flex1-2"
+          style={{minWidth: '405px'}}
+        >
           <TimeWidget/>
+        </div>
+        <div 
+          className="flex1-2"
+          style={{minWidth: '405px'}}
+        >
+          <DepartureBoard
+            journeys={this.state.journeys}
+          />
         </div>
       </div>
     );
@@ -106,13 +140,20 @@ class TimeWidget extends React.Component {
   }
 
   render() {
-    return <div className="board">
-      {this.state.timeNow}
-      <br/>
-      {this.state.dateNow}
+    return <div className="board" 
+      style={{
+        display: 'flex',
+        textAlign: 'center',
+        alignItems: 'center'
+      }}
+    >
+      <div>
+        <h2>{this.state.timeNow}</h2>
+        <h2>{this.state.dateNow}</h2>
+      </div>
     </div>;
   }
 }
 
 let domContainer = document.querySelector('#mountPoint');
-ReactDOM.render(<DepartureBoardContainer />, domContainer);
+ReactDOM.render(<WidgetContainer />, domContainer);
