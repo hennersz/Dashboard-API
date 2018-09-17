@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
   requests.push(rail.findDeparturesTo('BTN', 'BUG'));
   requests.push(rail.findDeparturesTo('BUG', 'BTN'));
   Promise.all(requests).then((results)=>{
-    res.render('index', {initialData: results});
+    res.render('index', {initialData: results, title: 'Dashboard'});
   });
 });
 
