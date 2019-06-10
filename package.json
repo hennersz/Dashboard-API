@@ -3,51 +3,22 @@
   "version": "1.0.0",
   "private": true,
   "author": "Henry Mortimer",
-  "engines": {
-    "node": "10.9.0"
-  },
   "scripts": {
     "start": "node ./bin/www",
     "dev": "DEBUG=dashboard:server nodemon ./bin/www",
-    "babel": "babel react --watch --out-dir ./public/javascript/build --source-maps inline",
-    "heroku-postbuild": "BABEL_ENV=production babel react --out-dir ./public/javascript/build"
-
+    "test": "jest"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.3",
+    "body-parser": "^1.19.0",
     "debug": "~2.6.9",
     "dotenv": "^6.0.0",
     "express": "~4.16.0",
-    "http-errors": "~1.6.2",
-    "morgan": "~1.9.0",
-    "national-rail-darwin": "^1.0.6",
-    "node-sass-middleware": "0.11.0",
-    "pug": "2.0.0-beta11",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2"
+    "morgan": "~1.9.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "@babel/preset-react": "^7.0.0",
-    "babel-preset-minify": "^0.4.3",
     "eslint": "^5.4.0",
-    "eslint-config-google": "^0.9.1",
-    "eslint-plugin-react": "^7.11.1",
-    "nodemon": "^1.18.3"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ],
-    "env": {
-      "production": {
-        "presets": [
-          "minify"
-        ]
-      }
-    }
+    "jest": "^24.8.0",
+    "nodemon": "^1.18.3",
+    "supertest": "^4.0.2"
   }
 }
